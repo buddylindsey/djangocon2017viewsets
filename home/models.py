@@ -8,3 +8,6 @@ class Coin(models.Model):
         max_digits=20, decimal_places=2, null=True)
     price_btc = models.DecimalField(
         max_digits=50, decimal_places=20, null=True)
+
+    def __str__(self):
+        return "{} - {}".format(self.name, self.symbol)

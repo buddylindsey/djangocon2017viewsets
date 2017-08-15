@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Coin
+
+
+@admin.register(Coin)
+class CoinAdmin(admin.ModelAdmin):
+    pass
