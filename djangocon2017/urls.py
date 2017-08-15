@@ -16,10 +16,10 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from home.views import coin_detail, coin_list
+from home.views import CoinListView, CoinDetailView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^api/coins/$', coin_list),
-    url(r'^api/coins/(?P<pk>[0-9]+)/$', coin_detail),
+    url(r'^api/coins/$', CoinListView.as_view()),
+    url(r'^api/coins/(?P<pk>[0-9]+)/$', CoinDetailView.as_view()),
 ]
