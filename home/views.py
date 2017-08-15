@@ -1,8 +1,6 @@
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.generics import (
-    ListCreateAPIView,
-    RetrieveUpdateDestroyAPIView
-)
+from rest_framework import viewsets
+from rest_framework import mixins
 
 from django_filters import rest_framework as filters
 
@@ -11,15 +9,14 @@ from .models import Coin
 from .serializers import CoinSerializer
 
 
-class CoinListView(ListCreateAPIView):
+class CoinViewSet(mixins.CreateModelMixin,
+                  mixins.ListModelMixin,
+                  mixins.UpdateModelMixin,
+                  mixins.RetrieveModelMixin,
+                  mixins.DestroyModelMixin,
+                  viewsets.GenericViewSet):
     permission_classes = (IsAuthenticated,)
     serializer_class = CoinSerializer
     filter_backends = (filters.DjangoFilterBackend, BitFilter)
     queryset = Coin.objects.all()
     filter_class = CoinFilter
-
-
-class CoinDetailView(RetrieveUpdateDestroyAPIView):
-    permission_classes = (IsAuthenticated,)
-    serializer_class = CoinSerializer
-    queryset = Coin.objects.all()
